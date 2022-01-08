@@ -4,7 +4,7 @@ export class PasswordHelper {
 
     public static hashPassword(password: string): Promise<string> {
         return new Promise<string>((resolve, reject) => {
-            bcrypt.hash(password, 10, (err, hash) => {
+            bcrypt.hash(password, 10, (err: Error, hash: string) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -16,13 +16,11 @@ export class PasswordHelper {
 
     public static comparePassword(password: string, hash: string): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
-            bcrypt.compare(password, hash, (err, res) => {
+            bcrypt.compare(password, hash, (err: Error, res: boolean) => {
                 if (err) {
                     reject(err);
-                } else if (res) {
-                    resolve(true);
                 } else {
-                    resolve(false);
+                    resolve(res);
                 }
             });
         });

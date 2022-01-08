@@ -26,4 +26,17 @@ export class Constants {
     public static API_AUTH_PATH = 'header';
     public static API_AUTH_NAME = 'Authorization';
 
+    // Auth Configuration
+    public static AUTH_HEADER_KEY = 'authorization';
+    public static AUTH_TYPE = 'Bearer';
+    public static JWT_SECRET_KEY = 'JG!g9MvCsKR=-Y=aVkF3EjRTYFJd-?qS=yf_FRRz@%!q3zdwb#=adHNdT#hC$?#A3yCZLcWqjq9RSX46GAQ*Z&y3d5*rBXZ=4RcHpX+Gs_eRZfrjwq&snC#G*jmU7mg@vey8rk@Wkp!jQw!9n_j35A@_+cAmusP8jg94*=zH%w^qCqb@p#^XE$8=G+pLW#&YbSJ!C$xvhrgVW3nmr^AvK9#?cu=!9QfXBj*NqcaC6XRA!U!+EJ67C3R4?pCCX@+8';
+    public static JWT_ENCODE_ALGORITHM = 'HS256';
+    public static JWT_ACCESS_EXPIRY = '2h';
+    public static JWT_REFRESH_EXPIRY = '30d';
+
+    // Auth Path
+    public static AUTH_PATH = 'auth';
+    public static AUTH_TAG = 'Auth';
+    public static LOGIN_PATH = 'login';
+    public static REGISTER_DEVICE_PATH = 'register-device';
 }
