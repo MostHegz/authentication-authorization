@@ -13,7 +13,6 @@ import { UserService } from './user.service';
 export class UserController {
     private logger = new Logger('UserController');
 
-
     constructor(private userService: UserService) { }
 
     @Post(Constants.ADD_PATH)
