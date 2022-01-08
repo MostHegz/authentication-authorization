@@ -19,4 +19,22 @@ export class UserRepository extends BaseRepository<User> {
             }
         });
     }
+
+    public async getUserDetailsById(id: number, uuid?: string): Promise<User> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const userQuery = this.createQueryBuilder('user')
+                    .leftJoinAndSelect('user.userDevices', 'userDevices')
+                    .where('user.id = :id', { id });
+                if (uuid) {
+                    userQuery.andWhere('userDevices.uuid = :uuid', { uuid });
+                }
+                const user = await userQuery.getOne();
+                resolve(user);
+            } catch (error) {
+                this.logger.error(error);
+                return reject(new InternalServerErrorException());
+            }
+        });
+    }
 }

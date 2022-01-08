@@ -12,7 +12,6 @@ import { SharedModule } from '../shared/shared.module';
       UserDeviceRepository
     ]),
     SharedModule,
-
   ],
   providers: [AuthService],
   controllers: [AuthController]

@@ -5,7 +5,7 @@ import { JwtPayload } from 'src/data';
 import { DefaultRoles } from 'src/data/enum/role';
 
 @Injectable()
-export class AuthorizeGuard implements CanActivate {
+export class RoleGuard implements CanActivate {
     constructor(private reflector: Reflector) { }
 
     canActivate(context: ExecutionContext): boolean {

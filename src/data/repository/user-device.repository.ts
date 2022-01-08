@@ -5,11 +5,15 @@ import { BaseRepository } from './base.repository';
 @EntityRepository(UserDevice)
 export class UserDeviceRepository extends BaseRepository<UserDevice> {
 
-    public async getUserDeviceByUUId(uuid: string): Promise<UserDevice> {
+    public async getUserDeviceByUUId(uuid: string, userId?: number): Promise<UserDevice> {
         return new Promise(async (resolve, reject) => {
             try {
-                const device = await this.createQueryBuilder('device')
-                    .where('device.uuid = :uuid', { uuid }).getOne();
+                const deviceQuery = await this.createQueryBuilder('device')
+                    .where('device.uuid = :uuid', { uuid });
+                if (userId) {
+                    deviceQuery.andWhere('device.user = :userId', { userId });
+                }
+                const device = deviceQuery.getOne();
                 resolve(device);
             } catch (error) {
                 this.logger.error(error);
