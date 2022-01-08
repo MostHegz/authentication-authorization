@@ -1,4 +1,4 @@
 export * from './enum';
 export * from './interface';
 export * from './model';
-export * from './response';
+export * from './repository';
