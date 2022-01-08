@@ -7,13 +7,15 @@ import { AuthModule } from './modules/auth/auth.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { AllExceptionsFilter } from './utilities';
 import { UserModule } from './modules/user/user.module';
+import { ShopModule } from './modules/shop/shop.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync(typeOrmConfigAsync),
     AuthModule,
     SharedModule,
-    UserModule
+    UserModule,
+    ShopModule
   ],
   controllers: [],
   providers: [

@@ -48,6 +48,12 @@ export class Constants {
     public static UPDATE_ROLES = 'update-roles';
     public static ALL_USERS = 'all-users';
 
+    // Shop Path
+    public static SHOP_PATH = 'shop';
+    public static SHOP_TAG = 'Shop';
+    public static ALL_SHOPS = 'all-shops';
+    public static ADD_TO_CART = 'add-to-cart';
+
     // CRUD Paths
     public static ADD_PATH = 'add';
     public static UPDATE_PATH = 'update';

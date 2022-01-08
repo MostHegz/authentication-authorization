@@ -12,7 +12,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalInterceptors(new SuccessResponseInterceptor());
-
+  // TODO: Enable cors only for trusted frontend urls
+  app.enableCors();
 
   const config = new DocumentBuilder()
     .setTitle(Constants.API_TITLE)
