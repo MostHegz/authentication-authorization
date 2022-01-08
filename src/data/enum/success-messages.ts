@@ -1,4 +1,4 @@
 export enum SuccessMessage {
     DeviceRegisteredSuccessfully = 'Device registered successfully',
-    UserAddedSuccessfully = 'User added successfully'
+    UserLoggedOutSuccessfully = 'User logged out successfully'
 }

@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Constants } from 'src/common';
 import { JwtPayload } from 'src/data';
 import { GetToken } from 'src/utilities';
-import { RefreshJwtGuard } from '../shared/guards';
+import { AccessJwtGuard, RefreshJwtGuard } from '../shared/guards';
 import { AuthService } from './auth.service';
 import { AuthResponse, LoginDto, RegisterDeviceDto } from './dto';
 
@@ -47,6 +47,21 @@ export class AuthController {
     refreshAccessToken(@GetToken() token: JwtPayload): Promise<AuthResponse> {
         try {
             return this.authService.refreshAccessToken(token);
+        } catch (error) {
+            this.logger.error(error);
+            throw new InternalServerErrorException();
+        }
+    }
+
+    @Post(Constants.LOGOUT_PATH)
+    @UsePipes(ValidationPipe)
+    @UseGuards(AccessJwtGuard)
+    @ApiBearerAuth(Constants.API_AUTH_NAME)
+    @ApiOperation({ summary: 'Logout', tags: [Constants.AUTH_TAG] })
+    @ApiResponse({ status: 200, description: 'Token revoked', type: String })
+    logout(@GetToken() token: JwtPayload): Promise<string> {
+        try {
+            return this.authService.logout(token);
         } catch (error) {
             this.logger.error(error);
             throw new InternalServerErrorException();

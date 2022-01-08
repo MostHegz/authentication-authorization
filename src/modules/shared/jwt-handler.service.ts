@@ -53,7 +53,7 @@ export class JwtHandlerService {
         } catch (error) {
             this.logger.error(error);
             if (error?.message?.includes('expired')) {
-                throw (new HttpException({ key: ErrorMessage.UnauthorizedUser }, HttpStatus.UNAUTHORIZED));
+                throw (new HttpException({ message: ErrorMessage.UnauthorizedUser }, HttpStatus.UNAUTHORIZED));
             }
             throw error;
         }

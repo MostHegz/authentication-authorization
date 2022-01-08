@@ -8,12 +8,12 @@ export class UserDeviceRepository extends BaseRepository<UserDevice> {
     public async getUserDeviceByUUId(uuid: string, userId?: number): Promise<UserDevice> {
         return new Promise(async (resolve, reject) => {
             try {
-                const deviceQuery = await this.createQueryBuilder('device')
+                const deviceQuery = this.createQueryBuilder('device')
                     .where('device.uuid = :uuid', { uuid });
                 if (userId) {
                     deviceQuery.andWhere('device.user = :userId', { userId });
                 }
-                const device = deviceQuery.getOne();
+                const device = await deviceQuery.getOne();
                 resolve(device);
             } catch (error) {
                 this.logger.error(error);

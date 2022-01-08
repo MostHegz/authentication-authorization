@@ -91,7 +91,7 @@ export class AuthService {
             try {
                 const user = await this.userRepository.getUserDetailsById(token.userId, token.userDevice);
                 if (!user) {
-                    return reject(new HttpException({ key: ErrorMessage.UnauthorizedUser }, HttpStatus.UNAUTHORIZED));
+                    return reject(new HttpException({ message: ErrorMessage.UnauthorizedUser }, HttpStatus.UNAUTHORIZED));
                 }
 
                 const payload: JwtPayload = {
@@ -114,6 +114,27 @@ export class AuthService {
                 response.refreshToken = user.userDevices[0].refreshToken;
 
                 resolve(response);
+            } catch (error) {
+                this.logger.error(error);
+                return reject(new InternalServerErrorException());
+            }
+        });
+    }
+
+    public async logout(token: JwtPayload): Promise<string> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const device = await this.userDeviceRepository.getUserDeviceByUUId(token.userDevice, token.userId);
+                if (!device) {
+                    return reject(new HttpException({ message: ErrorMessage.UnauthorizedUser }, HttpStatus.UNAUTHORIZED));
+                }
+
+                device.user = null;
+                device.accessToken = null;
+                device.refreshToken = null;
+
+                await this.userDeviceRepository.save(device);
+                resolve(SuccessMessage.UserLoggedOutSuccessfully);
             } catch (error) {
                 this.logger.error(error);
                 return reject(new InternalServerErrorException());
