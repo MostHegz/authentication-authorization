@@ -26,9 +26,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       try {
         // TODO: get token from redis instead of postgres
 
+        payload.userId = +payload['sub'];
         const device = await this.userDeviceRepository.getUserDeviceByUUId(payload.userDevice, payload.userId);
         if (!device || device?.status === UserDeviceStatus.Blocked) {
-          return reject(new HttpException({ key: ErrorMessage.UnauthorizedUser }, HttpStatus.UNAUTHORIZED));
+          return reject(new HttpException({ message: ErrorMessage.UnauthorizedUser }, HttpStatus.UNAUTHORIZED));
         }
         resolve(payload);
       } catch (error) {

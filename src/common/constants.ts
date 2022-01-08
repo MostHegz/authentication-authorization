@@ -38,6 +38,7 @@ export class Constants {
     public static AUTH_PATH = 'auth';
     public static AUTH_TAG = 'Auth';
     public static LOGIN_PATH = 'login';
+    public static LOGOUT_PATH = 'logout';
     public static REGISTER_DEVICE_PATH = 'register-device';
     public static REFRESH_ACCESS_TOKEN = 'refresh-access-token';
 
