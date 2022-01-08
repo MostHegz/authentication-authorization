@@ -6,12 +6,14 @@ import { typeOrmConfigAsync } from './config/typeorm.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { AllExceptionsFilter } from './utilities';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync(typeOrmConfigAsync),
     AuthModule,
-    SharedModule
+    SharedModule,
+    UserModule
   ],
   controllers: [],
   providers: [

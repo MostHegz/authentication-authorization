@@ -4,3 +4,9 @@ export enum DefaultRoles {
     Buyer = 'BUYER',
     Seller = 'SELLER',
 }
+
+export enum AvailableDefaultRoles {
+    Admin = 'ADMIN',
+    Buyer = 'BUYER',
+    Seller = 'SELLER',
+}
