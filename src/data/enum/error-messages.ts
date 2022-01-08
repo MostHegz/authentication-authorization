@@ -11,4 +11,7 @@ export enum ErrorMessage {
     LastNameBlank = 'Last name cannot be blank',
     UserAlreadyExist = 'User already exists',
     InvalidRole = 'Invalid role',
+    UserRequired = 'User required',
+    UserNotExist = 'User does not exist',
+    CannotUpdateUser = 'Cannot update user',
 }

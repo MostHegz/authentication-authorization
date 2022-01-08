@@ -42,9 +42,11 @@ export class Constants {
     public static REGISTER_DEVICE_PATH = 'register-device';
     public static REFRESH_ACCESS_TOKEN = 'refresh-access-token';
 
-    // Auth Path
+    // User Path
     public static USER_PATH = 'user';
     public static USER_TAG = 'User';
+    public static UPDATE_ROLES = 'update-roles';
+    public static ALL_USERS = 'all-users';
 
     // CRUD Paths
     public static ADD_PATH = 'add';
