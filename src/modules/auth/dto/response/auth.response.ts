@@ -27,7 +27,7 @@ export class AuthResponse {
     public lastName: string;
 
     @ApiProperty({
-        example: 'abdelslam.mostafa@gmail.com',
+        example: 'dummy@dummydomain.com',
         description: 'User Email'
     })
     @Expose()

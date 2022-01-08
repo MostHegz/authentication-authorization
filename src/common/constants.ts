@@ -39,4 +39,20 @@ export class Constants {
     public static AUTH_TAG = 'Auth';
     public static LOGIN_PATH = 'login';
     public static REGISTER_DEVICE_PATH = 'register-device';
+
+    // Auth Path
+    public static USER_PATH = 'user';
+    public static USER_TAG = 'User';
+
+    // CRUD Paths
+    public static ADD_PATH = 'add';
+    public static UPDATE_PATH = 'update';
+    public static BY_ID_PATH = '/:id';
+
+    // Regex
+    public static PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%+.*_?&#-]{8,15}$/;
+
+    // Context Keys
+    public static ROLES_KEY = 'roles';
+
 }

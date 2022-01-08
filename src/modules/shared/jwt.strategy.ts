@@ -22,7 +22,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     return new Promise(async (resolve, reject) => {
       try {
         // TODO: check if token exists in redis
-        resolve(payload);
+
+        const token = payload;
+        resolve(token);
       } catch (error) {
         this.logger.error(error);
         return reject(new InternalServerErrorException());

@@ -5,7 +5,7 @@ import { ErrorMessage } from 'src/data';
 export class LoginDto {
 
     @ApiProperty({
-        example: 'abdelsalam.mostafa@gmail.com',
+        example: 'dummy@dummydomain.com',
         description: 'email',
         required: true
     })
