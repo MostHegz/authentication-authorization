@@ -1,5 +1,17 @@
 import { DatabaseConstants } from 'src/common';
-import { BaseEntity, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+    BaseEntity,
+    Column,
+    CreateDateColumn,
+    DeleteDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from 'typeorm';
+import { UserDevice } from '.';
 import { DefaultRoles } from '../enum/role';
 
 @Entity({ name: 'users' })
@@ -20,7 +32,10 @@ export class User extends BaseEntity {
     password: string;
 
     @Column({ type: 'enum', enum: DefaultRoles, array: true })
-    roles: DefaultRoles;
+    roles: DefaultRoles[];
+
+    @OneToMany(() => UserDevice, userDevice => userDevice.user, { cascade: true })
+    userDevices: UserDevice[];
 
     @ManyToOne(() => User, { nullable: true })
     @JoinColumn({ name: 'created_by' })

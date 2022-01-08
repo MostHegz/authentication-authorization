@@ -6,9 +6,13 @@ import {
 } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { Constants } from './common';
+import { SuccessResponseInterceptor } from './utilities';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalInterceptors(new SuccessResponseInterceptor());
+
 
   const config = new DocumentBuilder()
     .setTitle(Constants.API_TITLE)
