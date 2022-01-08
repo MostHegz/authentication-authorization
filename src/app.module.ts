@@ -20,7 +20,7 @@ import { UserModule } from './modules/user/user.module';
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
-    },
+    }
   ],
 })
 export class AppModule { }

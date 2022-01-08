@@ -1,10 +1,10 @@
 import { Body, Controller, InternalServerErrorException, Logger, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Constants } from 'src/common';
+import { JwtPayload } from 'src/data';
 import { DefaultRoles } from 'src/data/enum/role';
-import { JwtPayload } from 'src/data/interface/jwt.interface';
-import { AuthorizedRoles, AuthorizeGuard, GetToken } from 'src/utilities';
+import { AuthorizedRoles, GetToken } from 'src/utilities';
+import { AccessJwtGuard, RoleGuard } from '../shared/guards';
 import { AddUserDto, UserResponse } from './dto';
 import { UserService } from './user.service';
 
@@ -18,7 +18,7 @@ export class UserController {
 
     @Post(Constants.ADD_PATH)
     @AuthorizedRoles(DefaultRoles.SuperAdmin)
-    @UseGuards(AuthGuard(), AuthorizeGuard)
+    @UseGuards(AccessJwtGuard, RoleGuard)
     @ApiOperation({ summary: 'Add user', tags: [Constants.USER_TAG] })
     @ApiResponse({ status: 200, description: 'User Added', type: UserResponse })
     @UsePipes(ValidationPipe)
