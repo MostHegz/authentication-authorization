@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ErrorMessage, JwtPayload, SuccessMessage, User, UserRepository } from 'src/data';
+import { DefaultRoles, ErrorMessage, JwtPayload, SuccessMessage, User, UserRepository } from 'src/data';
 import { MapperHelper, PasswordHelper } from 'src/utilities';
-import { AddUserDto, UserResponse } from './dto';
+import { AddUserDto, UpdateUserRolesDto, UserResponse } from './dto';
 
 @Injectable()
 export class UserService {
@@ -37,6 +37,64 @@ export class UserService {
 
                 const addedUser = await this.userRepository.save(newUser);
                 const response = MapperHelper.toClient(UserResponse, addedUser);
+                resolve(response);
+            } catch (error) {
+                this.logger.error(error);
+                return reject(new InternalServerErrorException());
+            }
+        });
+    }
+
+    public async updateRoles(updateUserRolesDto: UpdateUserRolesDto, token: JwtPayload): Promise<UserResponse> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const user = await this.userRepository.getUserDetailsById(updateUserRolesDto.userId);
+                if (!user) {
+                    return reject(new HttpException({ message: ErrorMessage.UserNotExist, property: 'userId' }, HttpStatus.NOT_FOUND));
+                }
+
+                if (user.roles.includes(DefaultRoles.SuperAdmin)) {
+                    return reject(new HttpException({ message: ErrorMessage.CannotUpdateUser, property: 'userId' }, HttpStatus.BAD_REQUEST));
+                }
+
+                user.roles = updateUserRolesDto.roles;
+
+                const updatingUser = new User();
+                updatingUser.id = token.userId;
+                user.updatedBy = updatingUser;
+
+                const updatedUser = await this.userRepository.save(user);
+                const response = MapperHelper.toClient(UserResponse, updatedUser);
+                resolve(response);
+            } catch (error) {
+                this.logger.error(error);
+                return reject(new InternalServerErrorException());
+            }
+        });
+    }
+
+    public async getUserById(id: number): Promise<UserResponse> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const user = await this.userRepository.getUserDetailsById(id);
+                if (!user) {
+                    return reject(new HttpException({ message: ErrorMessage.UserNotExist, property: 'userId' }, HttpStatus.NOT_FOUND));
+                }
+
+                const response = MapperHelper.toClient(UserResponse, user);
+                resolve(response);
+            } catch (error) {
+                this.logger.error(error);
+                return reject(new InternalServerErrorException());
+            }
+        });
+    }
+
+    public async getAllUsers(): Promise<UserResponse[]> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const users = await this.userRepository.getAll();
+                const response = MapperHelper.toClientList(UserResponse, users);
                 resolve(response);
             } catch (error) {
                 this.logger.error(error);
