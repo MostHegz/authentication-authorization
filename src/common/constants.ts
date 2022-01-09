@@ -2,12 +2,12 @@ export class Constants {
     public static DOT_ENV = require('dotenv').config();
 
     // API Routes
-    public static API_VERSION = 'v0.0.1';
+    public static API_VERSION = 'v0.0.2';
     public static API_PREFIX = 'api';
 
     // Admin data seeding
-    public static SUPER_ADMIN_EMAIL = process.env.SUPER_ADMIN_EMAIL;
-    public static SUPER_ADMIN_PASSWORD = process.env.SUPER_ADMIN_PASSWORD;
+    public static SUPER_ADMIN_EMAIL = process.env.SUPER_ADMIN_EMAIL ? process.env.SUPER_ADMIN_EMAIL : 'dummy@dummydomain.com';
+    public static SUPER_ADMIN_PASSWORD = process.env.SUPER_ADMIN_PASSWORD ? process.env.SUPER_ADMIN_PASSWORD : 'Auth@123';
     public static SUPER_ADMIN_FIRST_NAME = process.env.SUPER_ADMIN_FIRST_NAME ? process.env.SUPER_ADMIN_FIRST_NAME : 'N/A';
     public static SUPER_ADMIN_LAST_NAME = process.env.SUPER_ADMIN_LAST_NAME ? process.env.SUPER_ADMIN_LAST_NAME : 'N/A';
 
