@@ -1,6 +1,6 @@
 # Description
 
-This is an application to show authentication and authorization using [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is an application to show authentication and authorization using [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. This solution utilize [JWT](https://jwt.io/) to encode common user data in the authorization header. This results in less hits to the SQL db on each call
 
 # Table of Content
 
@@ -14,12 +14,13 @@ This is an application to show authentication and authorization using [Nest](htt
 
 ## Features
 
-1. Register device api that should send uuid for each device
-2. Login and Logout apis
-3. Refresh token api
-4. User Management APIs
-5. Dummy APIs to show the Roles Auth
-6. Exception filter to map all errors in the following interface
+1. Authorization and Authentication Decorators to allow for easier readability
+2. Register device api that should send uuid for each device
+3. Login and Logout apis
+4. Refresh token api
+5. User Management APIs
+6. Dummy APIs to show the Roles Auth
+7. Exception filter to map all errors in the following interface
 
    ```json
    {
