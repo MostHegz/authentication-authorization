@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DefaultRoles, ErrorMessage, JwtPayload, SuccessMessage, User, UserRepository } from 'src/data';
+import { DefaultRoles, ErrorMessage, JwtPayload, SuccessMessage, User, UserDeviceRepository, UserRepository } from 'src/data';
 import { MapperHelper, PasswordHelper } from 'src/utilities';
 import { AddUserDto, UpdateUserRolesDto, UserResponse } from './dto';
 
@@ -63,6 +63,8 @@ export class UserService {
                 updatingUser.id = token.userId;
                 user.updatedBy = updatingUser;
 
+                // this revoke all devices from the user
+                user.userDevices = [];
                 const updatedUser = await this.userRepository.save(user);
                 const response = MapperHelper.toClient(UserResponse, updatedUser);
                 resolve(response);
